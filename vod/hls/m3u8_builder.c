@@ -1001,7 +1001,7 @@ m3u8_builder_ext_x_media_tags_write(
 			group_index,
 			label);
 
-		if (tracks[media_type]->media_info.lang_str.len > 0 && (media_type != MEDIA_TYPE_AUDIO || adaptation_sets->multi_audio))
+		if (tracks[media_type]->media_info.lang_str.len > 0 /*&& (media_type != MEDIA_TYPE_AUDIO || adaptation_sets->multi_audio)*/)
 		{
 			p = vod_sprintf(p, M3U8_EXT_MEDIA_LANG,
 				&tracks[media_type]->media_info.lang_str);
@@ -1307,6 +1307,8 @@ m3u8_builder_build_master_playlist(
 	{
 		flags |= ADAPTATION_SETS_FLAG_MUXED;
 	}
+
+	flags = ADAPTATION_SETS_FLAG_MULTI_CODEC;
 
 	rc = manifest_utils_get_adaptation_sets(
 		request_context, 
